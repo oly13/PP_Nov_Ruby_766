@@ -12,5 +12,43 @@ La gestión de procesos en ejecución en un sistema operativo requiere mantener 
 
 init(ID=1, ParentID=N/A)  
 ··· Chrome(ID=2, ParentID=1)  
-    ··· Chrome(ID=5, ParentID=2)  
+··· ··· Chrome(ID=5, ParentID=2)  
 ··· Curl(ID=3, ParentID=1)  
+
+Como se puede apreciar, un proceso puede tener varios procesos hijos. Se desea desarrollar una librería en Ruby para gestionar procesos del sistema operativo. Esta librería debe soportar las siguientes acciones:
++ Añadir un nuevo proceso al sistema, dados su ID, ParentID y memoria
++ Iterar por todos los procesos del sistema operativo
++ Iterar por todos los procesos hijos de un proceso dado
++ Obtener la lista de los 10 procesos con mayor consumo de memoria
++ Devolver una lista con el el consumo de memoria de cada proceso agrupados por nombre
+Los procesos se identificarán por un ID, un ParentID, un nombre y un tamaño de memoria reservado para el proceso. Para conseguir estos objetivos deben cumplirse las siguientes premisas:
++ No se pueden utilizar sentencias de iteración como for, while, etc. Para iterar sobre colecciones de elementos se utilizarán exclusivamente iteradores
++ Deben utilizarse los iteradores adecuados para cada caso  
+Por ejemplo, el siguiente programa principal:
+```Ruby
+  require 'ProcessManager'
+  require 'Process'
+  proc_manager = ProcessManager.new
+  proc1 = Process.new(1, 0, 'init', 450)
+  proc2 = Process.new(2, 1, 'chrome', 2100)
+  proc3 = Process.new(5, 2, 'chrome', 1230)
+  proc_manager.addProcess(proc1)
+  proc_manager.addProcess(proc2)
+  proc_manager.addProcess(proc3)
+  proc_manager.each_process { |proc| puts proc }
+  puts '-----'
+  proc_manager.each_child_process(proc) { |proc| puts proc }
+  puts '------'
+  puts proc_manager.memory
+```
+Daría como resultado la siguiente salida: 
+``` 
+init, 1, 0, 450  
+chrome, 2, 1, 2100  
+chrome, 5, 2, 1230  
+---
+chrome, 2, 1, 2100
+chrome, 5, 2, 1230
+---
+{"init"=>450, "chrome"=>3330}
+```
