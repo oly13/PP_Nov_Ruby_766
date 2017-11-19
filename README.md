@@ -37,7 +37,7 @@ Por ejemplo, el siguiente programa principal:
   proc_manager.addProcess(proc3)
   proc_manager.each_process { |proc| puts proc }
   puts '-----'
-  proc_manager.each_child_process(proc) { |proc| puts proc }
+  proc_manager.each_child_process(proc1) { |proc| puts proc }
   puts '------'
   puts proc_manager.memory
 ```
