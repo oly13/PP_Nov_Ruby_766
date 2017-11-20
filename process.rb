@@ -1,5 +1,5 @@
 # Clase process
-class Process
+class Proceso
   attr_reader :id, :parent_id, :name, :memory
   def initialize(id, parent_id, name, memory)
     @id = id
@@ -9,6 +9,10 @@ class Process
   end
 
   def to_s
-    "ID: #{@id}, ParentID: #{@parent_id}, Name: #{@name}, Memory: #{@memory}"
+    "#{@name}, #{@id}, #{@parent_id}, #{@memory}"
+  end
+
+  def <=>(other)
+    @memory <=> other.memory
   end
 end

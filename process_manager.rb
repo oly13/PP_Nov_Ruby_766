@@ -1,4 +1,4 @@
-require 'Process'
+require './process'
 # Clase que maneja varios objetos process
 class ProcessManager
   def initialize
@@ -16,14 +16,22 @@ class ProcessManager
   end
 
   def each_child_process(process)
-    childs = @list_process.find_all { |proc| proc.parent_id = process.id }
-    childs.each { |child| yield child }
+    childs = @list_process.find_all { |proc| proc.parent_id == process.id }
+    childs.each do |child|
+      yield child
+      # each_child_process(child) { yield }
+    end
+  end
+
+  def memory_higher
+    @list_process.sort.reverse[0..9]
   end
 
   def memory
     memory = {}
     @names.each_pair do |key, array|
-      memory[key] += array.each { &:memory }
+      memory[key] = 0
+      array.each { |proc| memory[key] += proc.memory }
     end
     memory
   end
@@ -34,7 +42,7 @@ class ProcessManager
     if diccionario.include?(key)
       diccionario[key] << value
     else
-      diccionario[key] = value
+      diccionario[key] = [value]
     end
   end
 end
