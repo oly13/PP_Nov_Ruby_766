@@ -27,13 +27,12 @@ module Main
   proc_manager.add_process(proc10)
   proc_manager.add_process(proc11)
   proc_manager.add_process(proc12)
+  puts 'Iterar por todos los procesos del sistema operativo'
   proc_manager.each_process { |proc| puts proc }
-  puts '-----'
-  proc_manager.each_child_process(proc1) { |proc| puts proc }
-  puts '------'
+  puts 'Iterar por todos los procesos hijos de un proceso dado'
+  proc_manager.each_child_process(proc2) { |proc| p proc }
+  puts 'Devolver un mapa con el el consumo de memoria de cada proceso agrupados por nombre'
   puts proc_manager.memory
-  puts '------'
+  puts 'Obtener la lista de los 10 procesos con mayor consumo de memoria'
   puts proc_manager.memory_higher
-  puts '------'
-  proc_manager.each_process { |proc| puts proc }
 end

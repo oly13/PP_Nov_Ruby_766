@@ -19,7 +19,7 @@ class ProcessManager
     childs = @list_process.find_all { |proc| proc.parent_id == process.id }
     childs.each do |child|
       yield child
-      # each_child_process(child) { yield }
+      each_child_process(child) { |proc| yield proc }
     end
   end
 
