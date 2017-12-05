@@ -28,6 +28,7 @@ class ProcessManager
   def memory
     memory = {}
     @list_process.each { |proc| add_diccionario(memory, proc.name, proc.memory) }
+    memory
   end
 
   private
