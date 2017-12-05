@@ -26,6 +26,7 @@ class ProcessManager
   end
 
   def memory
+    memory = {}
     @list_process.each { |proc| add_diccionario(memory, proc.name, proc.memory) }
   end
 
