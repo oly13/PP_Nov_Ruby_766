@@ -3,12 +3,10 @@ require './process'
 class ProcessManager
   def initialize
     @list_process = []
-    @names = {}
   end
 
   def add_process(process)
     @list_process << process
-    add_diccionario(@names, process.name, process)
   end
 
   def each_process
@@ -28,21 +26,16 @@ class ProcessManager
   end
 
   def memory
-    memory = {}
-    @names.each_pair do |key, array|
-      memory[key] = 0
-      array.each { |proc| memory[key] += proc.memory }
-    end
-    memory
+    @list_process.each { |proc| add_diccionario(memory, proc.name, proc.memory) }
   end
 
   private
 
   def add_diccionario(diccionario, key, value)
     if diccionario.include?(key)
-      diccionario[key] << value
+      diccionario[key] += value
     else
-      diccionario[key] = [value]
+      diccionario[key] = value
     end
   end
 end
