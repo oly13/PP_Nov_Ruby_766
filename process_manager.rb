@@ -27,17 +27,13 @@ class ProcessManager
 
   def memory
     memory = {}
-    @list_process.each { |proc| add_diccionario(memory, proc.name, proc.memory) }
+    @list_process.each { |proc| add_hash(memory, proc.name, proc.memory) }
     memory
   end
 
   private
 
-  def add_diccionario(diccionario, key, value)
-    if diccionario.include?(key)
-      diccionario[key] += value
-    else
-      diccionario[key] = value
-    end
+  def add_hash(hash, key, value)
+    hash.include?(key) ? hash[key] += value : hash[key] = value
   end
 end

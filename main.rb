@@ -31,7 +31,8 @@ module Main
   proc_manager.each_process { |proc| puts proc }
   puts ' -> Iterar por todos los procesos hijos de un proceso dado'
   proc_manager.each_child_process(proc2) { |proc| puts proc }
-  puts ' -> Devolver un mapa con el consumo de memoria de cada proceso agrupados por nombre'
+  puts ' -> Devolver un mapa con el consumo de memoria de cada proceso agrupados
+    por nombre'
   puts proc_manager.memory
   puts ' -> Obtener la lista de los 10 procesos con mayor consumo de memoria'
   puts proc_manager.memory_higher
